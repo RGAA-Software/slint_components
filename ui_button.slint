@@ -1,0 +1,30 @@
+
+
+export component UIButton inherits Rectangle {
+
+    in property <string> itemtext: "Default";
+    in property <brush> bg_color: #009988;
+    in property <bool> selected: false;
+    
+    in property <length> text-size: 14px;
+    in property <brush> text-color: #FFFFFF;
+
+    callback clicked <=> ta.clicked;
+
+    width: 150px;
+    height: 35px;
+    border-radius: 8px;
+
+    Text {
+        text: itemtext;
+        font-size: text-size;
+        color: text-color;
+    }
+
+    background: ta.pressed || selected ? bg_color.darker(40%) :ta.has-hover? bg_color.darker(20%) : bg_color;
+
+    ta := TouchArea {
+        width: 100%;
+        height: 100%;
+    }
+}
