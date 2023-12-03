@@ -1,0 +1,37 @@
+import { Theme } from "ui_theme.slint";
+import { HSpace } from "ui_space.slint";
+import { VSpace } from "../render_supervisor/ui/ui_space.slint";
+
+export component Page inherits VerticalLayout {
+    
+    in property <bool> hide-title: false;
+    in property <bool> center-title: true;
+    in property <string> title: "Default title";
+    in property <length> title-margin-left: 0px;
+    in property <bool> active-indicator: true;
+
+    HorizontalLayout {
+        visible: hide-title ? false : true;
+        alignment: center-title ? center : start;
+        height: 45px;
+        HSpace {size: title-margin-left;}
+        VerticalLayout {
+            alignment: center;
+            Text {
+                text: title;
+                font-size: Theme.palette.font-size-first-header;
+            }
+
+            VSpace {size: 5px;}
+
+            Rectangle {
+                visible: active-indicator ? true : false;
+                width: 40px;
+                height: 4px;
+                background: Theme.palette.main-light-gradient;
+                border-radius: 2px;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,74 @@
+import { UIButton , MainButton, WarnButton, LightMainButton, ErrorButton} from "ui_button.slint";
+import { Theme } from "ui_theme.slint";
+import { HSpace, VSpace } from "ui_space.slint";
+import { ComponentPage1 } from "example_page_1.slint";
+import { ComponentPage2 } from "example_page_2.slint";
+import { SideBar } from "ui_side_bar.slint";
+import { RoundedImage } from "ui_rounded_image.slint";
+
+export component AppWindow inherits Window {
+
+    width: 1000px;
+    height: 700px;
+    background: #FFFF;
+    
+    HorizontalLayout {
+        VerticalLayout {
+
+            Rectangle {
+                height: 2px;
+                background: #606060;
+            }    
+
+            HorizontalLayout {
+                alignment: center;
+                Image { 
+                    width: 100px; height: 100px; source: @image-url("res/avatar.png"); 
+                }
+            }
+
+            VSpace {size: 30px;}
+
+            Rectangle {
+                width: 180px;
+                height: 540px;
+                // background: #909090;
+
+                sidebar := SideBar {
+                    item-space: 10px;
+                    font-normal-color: Theme.palette.font-color-assist;
+                    item-names: [
+                        {
+                            title: "Components",
+                            icon: @image-url("res/icon_favorite.svg")
+                        },
+                        {
+                            title: "Charts",
+                            icon: @image-url("res/icon_settings.svg")
+                        },
+                        {
+                            title: "Home",
+                            icon: @image-url("res/icon_home.svg")
+                        }
+                    ];
+                }
+            }
+        }
+
+        if sidebar.selected-index == 1:
+            ComponentPage1 {
+                width: 600px;
+                center-title: true;
+                title: sidebar.item-names[sidebar.selected-index].title;
+            }
+
+        if sidebar.selected-index == 0:
+            ComponentPage2 {
+                width: 600px;
+                center-title: false;
+                title: sidebar.item-names[sidebar.selected-index].title;
+            }
+
+    }
+
+}

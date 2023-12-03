@@ -1,0 +1,239 @@
+import { Theme } from "ui_theme.slint";
+import { VSpace } from "ui_space.slint";
+
+export struct BarChartItem {
+    x-axis: float,
+    y-axis: float,
+    title: string,
+}
+
+export component UIBarChartItem inherits Rectangle {
+
+    in property <brush> bar-color;
+    in property <float> x-value;
+    in property <float> y-value;
+    in property <bool> is-hover;
+
+}
+
+export component UIBarChart inherits Rectangle {
+
+    in property <string> x-axis-name: "x-axis";
+    in property <string> y-axis-name: "y-axis";
+
+    in property <length> bar-width: 16px;
+    in property <length> bar-gap: 6px;
+    in property <length> first-bar-padding-left: 20px;
+    in property <length> bar-padding-bottom: 1px;
+
+    in property <float> y-max: 100;
+    in property <float> y-min: 0;
+
+    in property <brush> font-color: Theme.palette.font-color-main;
+    in property <bool> enable-text-when-hover: true;
+    in property <[int]> y-axis-scales: [0,1,2,3,4,5];
+    in property <length> bar-border-radius: 4px;
+
+    in property <[BarChartItem]> items: [
+        {
+            x-axis: 0,
+            y-axis: 30,
+            title: "Title",
+        },
+        {
+            x-axis: 0,
+            y-axis: 60,
+            title: "Title",
+        }
+    ];
+
+    width: 300px;
+    height: 200px;
+    // background:#bb99bb;
+
+    states [
+        
+    ]
+
+    for item[index] in self.items: UIBarChartItem {
+        x: first-bar-padding-left + (bar-width + bar-gap) * index;
+        y: parent.height - self.height - bar-padding-bottom;
+        width: bar-width;
+        height: root.height * (item.y-axis / (root.y-max - root.y-min));
+        bar-color: Theme.palette.main-color;
+        x-value: item.x-axis;
+        y-value: item.y-axis;
+        border-radius: bar-border-radius;
+        
+        background: ta.pressed ? self.bar-color.darker(30%) : ta.has-hover ? self.bar-color.darker(15%) : self.bar-color;
+        
+        states [
+            hovering when ta.has-hover: {
+                is-hover: true;
+            }
+        ]
+
+        ta := TouchArea {
+            clicked => {
+
+            }
+        }
+
+        Rectangle {
+            width: 70px;
+            height: 60px;
+            visible: ta.has-hover ? true: false;
+                            
+            x: -self.width + root.bar-width;
+            y: -self.height;
+
+            background: #333E;
+            border-radius: 10px;
+            VerticalLayout {
+                alignment: center;
+                Text {
+                    color: Theme.palette.pure-white;
+                    width: parent.width;
+                    text: item.title;
+                    horizontal-alignment: center;
+                }
+                VSpace {size: 5px;}
+                Text {
+                    color: Theme.palette.pure-white;
+                    width: parent.width;
+                    text: "X : " + item.x-axis;
+                    horizontal-alignment: center;
+                }
+                VSpace {size: 5px;}
+                Text {
+                    color: Theme.palette.pure-white;
+                    width: parent.width;
+                    text: "Y : " + item.y-axis;
+                    horizontal-alignment: center;
+                }
+            }
+            
+        }
+    }
+
+
+    Path {
+        viewbox-width: parent.width/1px;
+        viewbox-height: parent.height/1px;
+
+        stroke: font-color;
+        stroke-width: bar-padding-bottom;
+
+        in property <int> max-x: self.viewbox-width;
+        in property <int> max-y: self.viewbox-height;
+
+        MoveTo {
+            x: 0;
+            y: 0;
+        }
+
+        LineTo {
+            x: 0;
+            y: max-y;
+        }
+
+        LineTo {
+            x: max-x;
+            y: max-y;
+        }
+    }
+
+    for y[index] in y-axis-scales: Rectangle {
+
+        p := Path {
+            viewbox-width: parent.width/1px;
+            viewbox-height: parent.height/1px;
+    
+            stroke: font-color;
+            stroke-width: bar-padding-bottom;
+    
+            in property <int> max-x: self.viewbox-width;
+            in property <int> max-y: self.viewbox-height;
+    
+            MoveTo {
+                x: 0;
+                y: parent.viewbox-height/y-axis-scales.length * index;
+            }
+            LineTo {
+                x: 5;
+                y: parent.viewbox-height/y-axis-scales.length * index;
+            }
+        }
+
+        in property <float> value: ((index+1) / y-axis-scales.length) * (root.y-max - root.y-min);
+
+        Text {
+            x: 2px;
+            y: root.height - p.viewbox-height/y-axis-scales.length * (index+1) * 1px;
+            //text: ;
+            text: "\{round(value)}";
+        }
+    }
+
+    for item[index] in self.items: Rectangle {
+        if index == 0: Rectangle {
+            width: 60px;
+            height: 20px;
+            // background: #009988;
+            x: 0;
+            y: parent.height;
+            Text {
+                width: parent.width;
+                horizontal-alignment: left;
+                text: item.x-axis;   
+                font-size: 12px;
+            }
+        }
+
+        if index == round(root.items.length/2): Rectangle {
+            width: 60px;
+            height: 20px;
+            // background: #009988;
+            x: items.length * (bar-gap + bar-width)/2 - self.width/2;
+            y: parent.height;
+            Text {
+                text: item.x-axis;   
+                font-size: 12px;
+            }
+        }
+
+        if index == (root.items.length - 1): Rectangle {
+            width: 60px;
+            height: 20px;
+            // background: #009988;
+            x: items.length * (bar-gap + bar-width) - self.width;
+            y: parent.height;
+            Text {
+                width: parent.width;
+                horizontal-alignment: right;
+                text: item.x-axis;   
+                font-size: 12px;
+            }
+        }
+    }
+
+    VerticalLayout {
+        width: root.width;
+        height: parent.height;
+        alignment: start;
+        padding-left: 70px;
+        Text {
+            text: "X: " + x-axis-name;
+            font-size: Theme.palette.font-size-normal-title;
+            color: Theme.palette.font-color-main;
+        }
+
+        VSpace {size: 6px;}
+
+        Text {
+            text: "Y: " + y-axis-name;
+            font-size: Theme.palette.font-size-normal-title;
+            color: Theme.palette.font-color-main;
+        }
+    }
+}

@@ -1,0 +1,96 @@
+export struct Palette {
+    
+    background: brush,
+
+    pure-white: brush,
+
+    font-color-main: brush,
+    font-color-assist: brush,
+    font-color-desc: brush,
+
+    divider-shot-color: brush,
+    dicver-color: brush,
+
+    main-color: brush,
+    main-color-darker-15: brush,
+    main-color-darker-30: brush,
+
+    error-color: brush,
+    error-color-darker-15: brush,
+    error-color-darker-30: brush,
+
+    warn-color: brush,
+    warn-color-darker-15: brush,
+    warn-color-darker-30: brush,
+
+    tips-color: brush,
+    tips-color-darker-15: brush,
+    tips-color-darker-30: brush,
+
+    light-main-color: brush,
+    light-main-darker-15: brush,
+    light-main-darker-30: brush,
+
+    main-light-gradient: brush,
+    
+    font-size-first-header: length,
+    font-size-second-header: length,
+    font-size-normal-title: length,
+    font-size-desc: length,
+
+}
+
+
+export global ThemeDay {
+    
+    in property <brush> preset-main-color: #07c160;
+    in property <brush> preset-error-color: #fa5151;
+    in property <brush> preset-warn-color: #ffc300;
+    in property <brush> preset-tips-color: #10aeff;
+    in property <brush> preset-light-main-color: #95ec69;
+
+    in property <Palette> palette: {
+        background: #ffffff,
+
+        pure-white: #ffffff,
+
+        font-color-main: #181818,
+        font-color-assist: #7b7b7b,
+        font-color-desc: #acacac,
+
+        divider-shot-color: #d2d2d2,
+        dicver-color: #dddddd,
+
+        main-color: preset-main-color,
+        main-color-darker-15: preset-main-color.darker(15%),
+        main-color-darker-30: preset-main-color.darker(30%),
+
+        error-color: preset-error-color,
+        error-color-darker-15: preset-error-color.darker(15%),
+        error-color-darker-30: preset-error-color.darker(30%),
+
+        warn-color: preset-warn-color,
+        warn-color-darker-15: preset-warn-color.darker(15%),
+        warn-color-darker-30: preset-warn-color.darker(30%),
+
+        tips-color: preset-tips-color,
+        tips-color-darker-15: preset-tips-color.darker(15%),
+        tips-color-darker-30: preset-tips-color.darker(30%),
+
+        light-main-color: preset-light-main-color,
+        light-main-darker-15: preset-light-main-color.darker(15%),
+        light-main-darker-30: preset-light-main-color.darker(30%),
+
+        main-light-gradient: @linear-gradient(90deg, preset-main-color, preset-light-main-color),
+
+        font-size-first-header: 18px,
+        font-size-second-header: 16px,
+        font-size-normal-title: 14px,
+        font-size-desc: 13px,
+    };
+
+}
+
+export global Theme {
+    in property <Palette> palette <=> ThemeDay.palette;
+}

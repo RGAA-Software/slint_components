@@ -1,0 +1,99 @@
+import { Page } from "ui_page.slint";
+import { Theme } from "ui_theme.slint";
+import { UIButton , MainButton, WarnButton, LightMainButton, ErrorButton} from "ui_button.slint";
+import { UIIconButton, MainIconButton, WarnIconButton, LightMainIconButton, ErrorIconButton } from "ui_icon_button.slint";
+import { HSpace, VSpace } from "ui_space.slint";
+import { RoundedImage } from "ui_rounded_image.slint";
+
+export component ComponentPage1 inherits Page {
+    
+    VerticalLayout {
+        HorizontalLayout {
+            MainButton {
+                text: "Main";
+            }
+            HSpace {size: 10px;}
+
+            LightMainButton {
+                text: "Light";
+            }
+            HSpace {size: 10px;}
+
+            WarnButton {
+                text: "Warn";
+            }
+            HSpace {size: 10px;}
+            
+            ErrorButton {
+                text: "Error";
+            }
+            
+        }
+
+        VSpace {size: 10px;}
+        HorizontalLayout {
+            MainIconButton {
+                text: "Settings";
+                src: @image-url("res/icon_settings.svg");
+            }
+            HSpace {size: 10px;}
+
+            LightMainIconButton {
+                text: "Light";
+                src: @image-url("res/icon_home.svg");
+            }
+            HSpace {size: 10px;}
+
+            WarnIconButton {
+                text: "Warn";
+                src: @image-url("res/icon_favorite.svg");
+            }
+            HSpace {size: 10px;}
+            
+            ErrorIconButton {
+                text: "Error";
+                src: @image-url("res/icon_block.svg");
+            }
+            
+        }
+
+        VSpace {size: 10px;}
+        HorizontalLayout {
+            RoundedImage {
+                width: 90px;
+                height: 90px;
+                border-radius: 15px;
+                clip: true;
+                src: @image-url("res/swan.jpg");
+            }
+
+            HSpace {size: 10px;}
+            RoundedImage {
+                width: 90px;
+                height: 90px;
+                border-radius: 25px;
+                clip: true;
+                src: @image-url("res/swan.jpg");
+            }
+
+            HSpace {size: 10px;}
+            RoundedImage {
+                width: 90px;
+                height: 90px;
+                border-radius: 35px;
+                clip: true;
+                src: @image-url("res/swan.jpg");
+            }
+
+            HSpace {size: 10px;}
+            RoundedImage {
+                width: 90px;
+                height: 90px;
+                border-radius: 45px;
+                clip: true;
+                src: @image-url("res/swan.jpg");
+            }
+        }
+    }
+
+}

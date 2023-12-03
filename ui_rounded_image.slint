@@ -1,0 +1,34 @@
+import { Theme } from "ui_theme.slint";
+
+export component RoundedImage inherits Rectangle {
+
+    in property <image> src;
+    in property <bool> enable-hover-click: true;
+    in property <brush> hover-click-color: Theme.palette.pure-white;
+
+    callback round-image-clicked();
+
+    width: 100px;
+    height: 100px;
+    clip: true;
+
+    Image {
+        width: parent.width;
+        height: parent.height;
+        source: src;
+    }
+    
+    Rectangle {
+        width: parent.width;
+        height: parent.height;
+        border-radius: parent.border-radius;
+        background: enable-hover-click ? ta.pressed ? hover-click-color.with-alpha(0.35) : ta.has-hover ? hover-click-color.with-alpha(0.2) : #0000 : #0000;
+    }
+
+    ta := TouchArea {
+        clicked => {
+            round-image-clicked();
+        }
+    }
+
+}

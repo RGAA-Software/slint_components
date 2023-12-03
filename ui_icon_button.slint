@@ -1,0 +1,68 @@
+import { Theme } from "ui_theme.slint";
+import { HSpace } from "ui_space.slint";
+
+export component UIIconButton inherits Rectangle {
+    
+    in property <bool> selected: false;
+    in property <string> text: "Default";
+    in property <length> text-size: 14px;
+    in property <brush> bg-color: Theme.palette.main-color;
+    in property <brush> text-color: #FFFFFF;
+    in property <length> icon-size: 18px;
+    in property <length> icon-text-space: 5px;
+    in property <image> src;
+
+    callback button-clicked <=> ta.clicked;
+
+    width: 110px;
+    height: 30px;
+    border-radius: 8px;
+    background: ta.pressed || selected ? bg-color.darker(30%) :ta.has-hover? bg-color.darker(15%) : bg-color;
+
+    HorizontalLayout {
+        alignment: center;
+        height: parent.height;
+
+        VerticalLayout {
+            alignment: center;
+            Image {
+                width: icon-size;
+                height: icon-size;
+                source: src;
+            }
+        }
+
+        HSpace {
+            size: icon-text-space;
+        }
+
+        Text {
+            text: text;
+            font-size: text-size;
+            color: text-color;
+            vertical-alignment: center;
+        }
+    }
+    ta := TouchArea {
+        width: 100%;
+        height: 100%;
+    }
+
+}
+
+
+export component MainIconButton inherits UIIconButton {
+    bg-color: Theme.palette.main-color;
+}
+
+export component WarnIconButton inherits UIIconButton {
+    bg-color: Theme.palette.warn-color;
+}
+
+export component ErrorIconButton inherits UIIconButton {
+    bg-color: Theme.palette.error-color;
+}
+
+export component LightMainIconButton inherits UIIconButton {
+    bg-color: Theme.palette.light-main-color;
+}

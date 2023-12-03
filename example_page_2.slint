@@ -1,0 +1,92 @@
+import { Page } from "ui_page.slint";
+import { UIBarChart } from "ui_bar_chart.slint";
+import { VSpace } from "../render_supervisor/ui/ui_space.slint";
+export component ComponentPage2 inherits Page {
+    
+    VSpace {size: 20px;}
+
+    HorizontalLayout {
+
+        UIBarChart {
+            bar-width: 14px;
+            bar-border-radius: 4px;
+            bar-gap: 7px;
+            x-axis-name: "Age";
+            y-axis-name: "Score";
+            width: 300px;
+            height: 200px;
+            items: [
+                {
+                    x-axis: 0,
+                    y-axis: 50,
+                    title: "Check",
+                },
+                {
+                    x-axis: 10,
+                    y-axis: 20,
+                    title: "Check",
+                }
+                ,
+                {
+                    x-axis: 20,
+                    y-axis: 30,
+                    title: "Check",
+                },
+                {
+                    x-axis: 30,
+                    y-axis: 50,
+                    title: "Check",
+                },
+                {
+                    x-axis: 40,
+                    y-axis: 20,
+                    title: "Check",
+                },
+                {
+                    x-axis: 50,
+                    y-axis: 30,
+                    title: "Check",
+                },
+                {
+                    x-axis: 60,
+                    y-axis: 50,
+                    title: "Check",
+                },
+                {
+                    x-axis: 70,
+                    y-axis: 20,
+                    title: "Check",
+                }
+                ,
+                {
+                    x-axis: 80,
+                    y-axis: 30,
+                    title: "Check",
+                },
+                {
+                    x-axis: 90,
+                    y-axis: 50,
+                    title: "Check",
+                },
+                {
+                    x-axis: 100,
+                    y-axis: 20,
+                    title: "Check",
+                }
+                ,
+                {
+                    x-axis: 110,
+                    y-axis: 30,
+                    title: "Check",
+                }
+                ,
+                {
+                    x-axis: 120,
+                    y-axis: 100,
+                    title: "Check",
+                }
+            ];
+        }
+    }
+
+}
