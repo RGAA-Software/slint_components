@@ -12,12 +12,10 @@ export component UIBarChartItem inherits Rectangle {
     in property <brush> bar-color;
     in property <float> x-value;
     in property <float> y-value;
-    in property <bool> is-hover;
-    in property <float> anim-value;
 
 }
 
-export component UIBarChart inherits Rectangle {
+export component UILineChart inherits Rectangle {
 
     in property <string> x-axis-name: "x-axis";
     in property <string> y-axis-name: "y-axis";
@@ -33,9 +31,7 @@ export component UIBarChart inherits Rectangle {
     in property <brush> font-color: Theme.palette.font-color-main;
     in property <bool> enable-text-when-hover: true;
     in property <[int]> y-axis-scales: [0,1,2,3,4,5];
-    in property <length> bar-border-radius: 4px;
-
-    in property <bool> page-visible;
+    in property <length> bar-border-radius: 3px;
 
     in property <[BarChartItem]> items: [
         {
@@ -54,30 +50,33 @@ export component UIBarChart inherits Rectangle {
     height: 200px;
     // background:#bb99bb;
 
+    states [
+        
+    ]
+
     for item[index] in self.items: UIBarChartItem {
-        x: first-bar-padding-left + (bar-width + bar-gap) * index + (ta.has-hover ? -1px : 0px);
-        y: parent.height - self.height - bar-padding-bottom;
-        width: ta.has-hover ? bar-width + 2px : bar-width;
-        height: root.height * (item.y-axis / (root.y-max - root.y-min)) * self.anim-value;
+        x: first-bar-padding-left + (bar-width + bar-gap) * index;
+        y: parent.height - self.height - bar-padding-bottom - root.height * (item.y-axis / (root.y-max - root.y-min));
+        // width: bar-width;
+        // height: root.height * (item.y-axis / (root.y-max - root.y-min));
+        width: 15px;
+        height: 15px;
+
         bar-color: Theme.palette.main-color;
         x-value: item.x-axis;
         y-value: item.y-axis;
-        border-radius: bar-border-radius;
-        anim-value: ta.has-hover ? 1.06 : 1.0;
-
-        background: ta.pressed ? self.bar-color.darker(30%) : ta.has-hover ? self.bar-color.darker(15%) : self.bar-color;
+    
         
-        animate background, anim-value {
-            duration: 150ms; easing: ease-in-out;
+        Rectangle {
+            width: ta.has-hover ? 12px : 8px;
+            height: ta.has-hover ? 12px : 8px;
+            border-radius: ta.has-hover ? 6px : 4px;
+            background: parent.bar-color;
         }
-
-        states [
-            
-        ]
 
         ta := TouchArea {
             clicked => {
-                parent.anim-value = 1.1;
+
             }
         }
 
@@ -118,7 +117,30 @@ export component UIBarChart inherits Rectangle {
         }
     }
 
+    // line
+    for item[index] in root.items: Path {
+        viewbox-width: parent.width/1px;
+        viewbox-height: parent.height/1px;
 
+        stroke: Theme.palette.main-color;
+        stroke-width: 2px;
+
+        in property <int> next-index: min(index+1, items.length - 1);
+
+        MoveTo {
+            x: root.first-bar-padding-left/1px + (bar-width + bar-gap) * index/1px + 7;
+            y: root.height/1px - bar-padding-bottom/1px - root.height/1px * (item.y-axis / (root.y-max - root.y-min)) - 7;
+        }
+
+        LineTo {
+            // 7 = 15 / 2 = click region / 2
+            x: root.first-bar-padding-left/1px + (bar-width + bar-gap) * next-index/1px + 7;
+            y: root.height/1px - bar-padding-bottom/1px - root.height/1px * (items[next-index].y-axis / (root.y-max - root.y-min)) - 7;
+        }
+
+    }
+
+    // axis
     Path {
         viewbox-width: parent.width/1px;
         viewbox-height: parent.height/1px;
@@ -145,6 +167,7 @@ export component UIBarChart inherits Rectangle {
         }
     }
 
+    // Y axis value
     for y[index] in y-axis-scales: Rectangle {
 
         p := Path {
@@ -177,6 +200,7 @@ export component UIBarChart inherits Rectangle {
         }
     }
 
+    // X axis value
     for item[index] in self.items: Rectangle {
         if index == 0: Rectangle {
             width: 60px;

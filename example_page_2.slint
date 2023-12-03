@@ -1,8 +1,13 @@
 import { Page } from "ui_page.slint";
 import { UIBarChart } from "ui_bar_chart.slint";
-import { VSpace } from "../render_supervisor/ui/ui_space.slint";
+import { VSpace, HSpace } from "ui_space.slint";
+import { UIPannel } from "ui_panel.slint";
+import { UILineChart } from "ui_line_chart.slint";
+
 export component ComponentPage2 inherits Page {
     
+    in property <bool> page-visible;
+
     VSpace {size: 20px;}
 
     HorizontalLayout {
@@ -15,6 +20,7 @@ export component ComponentPage2 inherits Page {
             y-axis-name: "Score";
             width: 300px;
             height: 200px;
+            page-visible: root.page-visible;
             items: [
                 {
                     x-axis: 0,
@@ -87,6 +93,96 @@ export component ComponentPage2 inherits Page {
                 }
             ];
         }
+
+        HSpace {size: 20px;}
+        
+        UIPannel {
+            width: 200px;
+            height: 200px;
+            title: "CPU Usage";
+        }
+
     }
 
+    VSpace {size: 30px;}
+
+    HorizontalLayout {
+        UILineChart {
+            items: [
+                {
+                    x-axis: 0,
+                    y-axis: 50,
+                    title: "Check",
+                },
+                {
+                    x-axis: 10,
+                    y-axis: 20,
+                    title: "Check",
+                }
+                ,
+                {
+                    x-axis: 20,
+                    y-axis: 30,
+                    title: "Check",
+                },
+                {
+                    x-axis: 30,
+                    y-axis: 50,
+                    title: "Check",
+                },
+                {
+                    x-axis: 40,
+                    y-axis: 20,
+                    title: "Check",
+                },
+                {
+                    x-axis: 50,
+                    y-axis: 30,
+                    title: "Check",
+                },
+                {
+                    x-axis: 60,
+                    y-axis: 50,
+                    title: "Check",
+                },
+                {
+                    x-axis: 70,
+                    y-axis: 20,
+                    title: "Check",
+                }
+                ,
+                {
+                    x-axis: 80,
+                    y-axis: 30,
+                    title: "Check",
+                },
+                {
+                    x-axis: 90,
+                    y-axis: 50,
+                    title: "Check",
+                },
+                {
+                    x-axis: 100,
+                    y-axis: 20,
+                    title: "Check",
+                }
+                ,
+                {
+                    x-axis: 110,
+                    y-axis: 30,
+                    title: "Check",
+                }
+                ,
+                {
+                    x-axis: 120,
+                    y-axis: 100,
+                    title: "Check",
+                }
+            ];
+        }
+
+        HSpace {size: 20px;}
+
+    
+    }
 }

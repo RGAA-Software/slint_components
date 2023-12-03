@@ -60,6 +60,7 @@ export component AppWindow inherits Window {
                 width: 600px;
                 center-title: true;
                 title: sidebar.item-names[sidebar.selected-index].title;
+                page-visible: sidebar.selected-index == 1;
             }
 
         if sidebar.selected-index == 0:
@@ -67,6 +68,7 @@ export component AppWindow inherits Window {
                 width: 600px;
                 center-title: false;
                 title: sidebar.item-names[sidebar.selected-index].title;
+                page-visible: sidebar.selected-index == 0;
             }
 
     }

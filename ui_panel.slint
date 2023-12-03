@@ -1,0 +1,111 @@
+import { Theme } from "ui_theme.slint";
+
+export component UIPannel inherits Rectangle {
+    
+    width: 200px;
+    height: 200px;
+    
+    // background: #ffcc00;
+
+    in property <int> percent: 22;
+    in property <string> title: "Default title";
+
+    in property <brush> circle-color: @linear-gradient(90deg, Theme.palette.main-color, Theme.palette.warn-color, Theme.palette.error-color);
+
+    Path {
+
+        stroke: ta.has-hover ? circle-color.brighter(30%) : circle-color;
+        stroke-width: ta.has-hover ? 12px : 10px;
+
+        viewbox-width: parent.width/1px;
+        viewbox-height: parent.height/1px;
+
+        MoveTo {
+            x: parent.viewbox-width;
+            y: parent.viewbox-height + 5;
+        }
+
+        ArcTo {
+            x: 0;
+            y: parent.viewbox-height + 5;
+            radius-x: 1;
+            radius-y: 1;
+        }
+    }
+
+    Text {
+        y: root.height/2 + 10px;
+        text: "50%";
+    }
+
+    Text {
+        x: 12px;
+        y: root.height - 12px;
+        text: "0%";
+    }
+
+    Text {
+        x: root.width - 12px - 30px;
+        y: root.height - 12px;
+        text: "100%";
+    }
+
+    Text {
+        y: root.height/2 + 50px;
+        text: percent+"%";
+        font-weight: 700;
+        font-size: 23px;
+    }
+
+    Text {
+        y: root.height/2 - 40px;
+        text: title;
+        font-size: Theme.palette.font-size-first-header;
+    }
+
+    Rectangle {
+
+        in property <brush> indicator-color: @linear-gradient(180deg, Theme.palette.warn-color, Theme.palette.main-color);
+
+        width: root.width - 40px;
+        height: root.height - 40px;
+
+        y: 40px;
+
+        Path {
+            stroke: ta.has-hover ? indicator-color.brighter(30%) : indicator-color;
+            stroke-width: 2px;
+
+            width: parent.width;
+            height: parent.height;
+
+            x: 0px;
+            y: 0px;
+        
+            viewbox-width: parent.width/1px;
+            viewbox-height: parent.height/1px;
+
+            MoveTo {
+                x: parent.width/1px/2;
+                y: parent.height/1px;
+            }
+
+            LineTo {
+                x: (parent.width/1px)/2 * (1 - cos(180deg*percent/100));
+                y: parent.height/1px - (parent.height/1px/2 * (sin(180deg*percent/100)));
+            }
+        }
+    }
+
+    Rectangle {
+        y: root.height - self.height/2;
+        width: 14px;
+        height: 14px;
+        background: ta.has-hover ? Theme.palette.main-color.brighter(30%) : Theme.palette.main-color;
+        border-radius: self.width/2;
+    }
+
+    ta := TouchArea {
+
+    }
+}
