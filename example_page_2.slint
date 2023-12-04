@@ -3,6 +3,8 @@ import { UIBarChart } from "ui_bar_chart.slint";
 import { VSpace, HSpace } from "ui_space.slint";
 import { UIPannel } from "ui_panel.slint";
 import { UILineChart } from "ui_line_chart.slint";
+import { UIBlockChart } from "ui_block_chart.slint";
+import { Theme } from "ui_theme.slint";
 
 export component ComponentPage2 inherits Page {
     
@@ -183,6 +185,30 @@ export component ComponentPage2 inherits Page {
 
         HSpace {size: 20px;}
 
-    
+        UIBlockChart {
+            title: "Application";
+            model: [
+                {
+                    num: 15,
+                    name: "Visual Studio",
+                    color: Theme.palette.error-color,
+                },
+                {
+                    num: 20,
+                    name: "Idea",
+                    color: Theme.palette.warn-color,
+                },
+                {
+                    num: 10,
+                    name: "QtCreator",
+                    color: Theme.palette.light-main-color,
+                },
+                {
+                    num: 55,
+                    name: "VS Code",
+                    color: Theme.palette.main-color,
+                },
+            ];
+        }
     }
 }

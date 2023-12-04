@@ -1,0 +1,111 @@
+import { Theme } from "ui_theme.slint";
+import { HSpace } from "ui_space.slint";
+
+export struct BlockItemInfo {
+    num: int,
+    name: string,
+    color: brush,
+}
+
+export component UIBlockChart inherits Rectangle {
+    
+    in property <string> title: "Default title";
+    in property <length> h-space: 20px;
+    in property <length> block-height: 40px;
+    in property <int> total-num: 100;
+    in property <[BlockItemInfo]> model: [
+        {
+            num: 10,
+            name: "Test1",
+            color: Theme.palette.error-color,
+        },
+        {
+            num: 20,
+            name: "Test2",
+            color: Theme.palette.warn-color,
+        },
+        {
+            num: 30,
+            name: "Test3",
+            color: Theme.palette.light-main-color,
+        },
+        {
+            num: 40,
+            name: "Test4",
+            color: Theme.palette.main-color,
+        },
+    ];
+
+    width: 300px;
+    height: 200px;
+    // background: #909090;
+
+    block := Rectangle {
+        y: root.height - self.height - 20px;
+        width: parent.width - h-space*2;
+        height: block-height;
+        // background: #808080;
+        border-radius: 4px;
+        clip: true;
+
+        HorizontalLayout {
+            width: parent.width;
+            height: parent.height;
+            for item[index] in model: Rectangle {
+                y: ta.has-hover ? 3px : 0px;
+                width: item.num/total-num * block.width;
+                height: ta.has-hover ? block.height - 6px : block.height;
+                background: item.color;
+                border-radius: ta.has-hover ? 7px : 0;
+                animate y, height , border-radius{
+                     duration: 300ms;
+                }
+
+                ta := TouchArea {
+
+                }
+
+                Text {
+                    text: item.num;
+                    color: Theme.palette.pure-white;
+                    font-weight: 700;
+                    opacity: ta.has-hover ? 1.0 : 0.0;
+                    animate opacity {
+                         duration: 300ms;
+                    }
+                }
+            }
+        }
+    }
+
+    Text {
+        y: 20px;
+        font-size: Theme.palette.font-size-first-header;
+        text: title;
+    }
+
+    VerticalLayout {
+        padding-left: 20px;
+        padding-top: 48px;
+        for item[index] in model: HorizontalLayout {
+            width: 120px;
+            height: 20px;
+            VerticalLayout {
+                alignment: center;
+                Rectangle {
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 3px;
+                    background: item.color;
+                }
+            }
+            HSpace {size: 5px;}
+            Text {
+                width: 120px;
+                horizontal-alignment: left;
+                text: item.name;
+                vertical-alignment: center;
+            }
+        }
+    }
+}
