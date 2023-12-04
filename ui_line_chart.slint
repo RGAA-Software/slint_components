@@ -33,6 +33,9 @@ export component UILineChart inherits Rectangle {
     in property <[int]> y-axis-scales: [0,1,2,3,4,5];
     in property <length> bar-border-radius: 3px;
 
+    in property <bool> enable-dot: true;
+    in property <brush> line-color: Theme.palette.main-color;
+
     in property <[BarChartItem]> items: [
         {
             x-axis: 0,
@@ -43,7 +46,47 @@ export component UILineChart inherits Rectangle {
             x-axis: 0,
             y-axis: 60,
             title: "Title",
-        }
+        },
+        {
+            x-axis: 0,
+            y-axis: 65,
+            title: "Title",
+        },
+        {
+            x-axis: 0,
+            y-axis: 43,
+            title: "Title",
+        },
+        {
+            x-axis: 0,
+            y-axis: 47,
+            title: "Title",
+        },
+        {
+            x-axis: 0,
+            y-axis: 35,
+            title: "Title",
+        },
+        {
+            x-axis: 0,
+            y-axis: 39,
+            title: "Title",
+        },
+        {
+            x-axis: 0,
+            y-axis: 20,
+            title: "Title",
+        },
+        {
+            x-axis: 0,
+            y-axis: 30,
+            title: "Title",
+        },
+        {
+            x-axis: 0,
+            y-axis: 40,
+            title: "Title",
+        },
     ];
 
     width: 300px;
@@ -62,12 +105,13 @@ export component UILineChart inherits Rectangle {
         width: 15px;
         height: 15px;
 
-        bar-color: Theme.palette.main-color;
+        bar-color: line-color;
         x-value: item.x-axis;
         y-value: item.y-axis;
     
         
         Rectangle {
+            visible: enable-dot ? true : false;
             width: ta.has-hover ? 12px : 8px;
             height: ta.has-hover ? 12px : 8px;
             border-radius: ta.has-hover ? 6px : 4px;
@@ -122,7 +166,7 @@ export component UILineChart inherits Rectangle {
         viewbox-width: parent.width/1px;
         viewbox-height: parent.height/1px;
 
-        stroke: Theme.palette.main-color;
+        stroke: line-color;
         stroke-width: 2px;
 
         in property <int> next-index: min(index+1, items.length - 1);
