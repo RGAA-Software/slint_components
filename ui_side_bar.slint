@@ -21,6 +21,10 @@ export component SideBarItem inherits Rectangle {
     border-radius: 8px;
     background: ta.pressed || selected ? active-bg-color :ta.has-hover? active-bg-color.darker(15%) : inavtive-bg-color;
 
+    animate background {
+        duration: 300ms;
+    }
+
     HorizontalLayout {
         alignment: start;
 
