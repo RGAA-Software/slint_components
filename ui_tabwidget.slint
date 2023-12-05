@@ -1,0 +1,75 @@
+import { Theme } from "ui_theme.slint";
+
+export struct TabInfo {
+    name: string,
+    background: brush,
+}
+
+export component UITabWidget inherits Rectangle {
+    
+    in-out property <int> active-tab;
+    
+    in property <length> tab-bar-height: 35px;
+    in property <length> tab-bar-width: 120px;
+    in property <brush> tab-bar-selected-bg: Theme.palette.main-color;
+    in property <brush> tab-bar-normal-bg: Theme.palette.pure-white;
+
+    in property <[TabInfo]> model: [
+        {
+            name: "First",
+            background: #909090,
+        },
+        {
+            name: "Second",
+            background: #903080,
+        },
+        {
+            name: "Third",
+            background: #303080,
+        },
+    ];
+
+    width: 500px;
+    height: 100px;
+
+    tab_bar := HorizontalLayout {
+        x: root.x;
+        y: root.y;
+        height: tab-bar-height;
+        for item[index] in model: Rectangle {
+            width: tab-bar-width;
+            height: tab-bar-height;
+            background: root.active-tab == index ? Theme.palette.main-color : Theme.palette.pure-white;
+
+            border-radius: 5px;
+
+            animate background {
+                 duration: 300ms;
+            }
+
+            Text {
+                text: item.name;
+                font-weight: 700;
+                font-size: Theme.palette.font-size-normal-title;
+                color: root.active-tab == index ? Theme.palette.pure-white : Theme.palette.font-color-main.with-alpha(0.7);
+            }
+            TouchArea {
+                clicked => {
+                    root.active-tab = index;    
+                }
+            }   
+        }
+    }
+
+    for item[index] in model: Rectangle {
+        clip: true;
+        Rectangle {
+            background: item.background;
+            x: 0;//root.active-tab == index ? 0 : root.active-tab < index ? - self.width: parent.width;
+            y: tab-bar.y + tab-bar.height;
+            opacity: root.active-tab == index ? 1.0 : 0.0;
+            animate x { duration: 300ms; easing: ease-out-quart; }
+        }
+    }
+
+}
