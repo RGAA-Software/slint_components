@@ -5,6 +5,7 @@ import { UIPannel } from "ui_panel.slint";
 import { UILineChart } from "ui_line_chart.slint";
 import { UIBlockChart } from "ui_block_chart.slint";
 import { Theme } from "ui_theme.slint";
+import { UIBubbleChart } from "ui_bubble_chart.slint";
 
 export component ComponentPage2 inherits Page {
     
@@ -209,6 +210,14 @@ export component ComponentPage2 inherits Page {
                     color: Theme.palette.main-color,
                 },
             ];
+        }
+    }
+
+    VSpace {size: 330px;}
+
+    HorizontalLayout {
+        UIBubbleChart {
+
         }
     }
 }
