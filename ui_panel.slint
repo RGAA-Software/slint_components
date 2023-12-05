@@ -9,8 +9,11 @@ export component UIPannel inherits Rectangle {
 
     in property <int> percent: 22;
     in property <string> title: "Default title";
-
-    in property <brush> circle-color: @linear-gradient(90deg, Theme.palette.main-color, Theme.palette.warn-color, Theme.palette.error-color);
+    in property <brush> start-color: Theme.palette.main-color;
+    in property <brush> end-color: Theme.palette.error-color;
+    in property <brush> mid-color: Theme.palette.warn-color;
+    in property <brush> circle-color: @linear-gradient(90deg, start-color, mid-color, end-color);
+    in property <length> title-offset-y: 0px;
 
     Path {
 
@@ -57,15 +60,21 @@ export component UIPannel inherits Rectangle {
         font-size: 23px;
     }
 
-    Text {
-        y: root.height/2 - 40px;
-        text: title;
-        font-size: Theme.palette.font-size-first-header;
+    Rectangle {
+        y: root.y + title-offset-y;
+        width: root.width;
+        height: 40px;
+        // background: #909090;
+        Text {
+            text: title;
+            font-weight: 700;
+            font-size: Theme.palette.font-size-first-header;
+        }
     }
 
     Rectangle {
 
-        in property <brush> indicator-color: @linear-gradient(180deg, Theme.palette.warn-color, Theme.palette.main-color);
+        in property <brush> indicator-color: @linear-gradient(180deg, start-color, mid-color);
 
         width: root.width - 40px;
         height: root.height - 40px;
@@ -101,7 +110,7 @@ export component UIPannel inherits Rectangle {
         y: root.height - self.height/2;
         width: 14px;
         height: 14px;
-        background: ta.has-hover ? Theme.palette.main-color.brighter(30%) : Theme.palette.main-color;
+        background: ta.has-hover ? start-color.brighter(30%) : start-color;
         border-radius: self.width/2;
     }
 
