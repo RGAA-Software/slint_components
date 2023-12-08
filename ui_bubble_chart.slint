@@ -48,10 +48,10 @@ export component UIBubbleChart inherits Rectangle {
             CubicTo {
                 x: 0;
                 y: parent.viewbox-height - parent.viewbox-height * percent / 100;
-                control-1-x: parent.viewbox-width * 3/4;
-                control-1-y: parent.viewbox-height - parent.viewbox-height * (percent + 20 * (sin(360deg * animation-tick()/5000/1ms))) / 100;
-                control-2-x: parent.viewbox-width * 1/4;
-                control-2-y: parent.viewbox-height - parent.viewbox-height * (percent - 20 * (cos(360deg * animation-tick()/4000/1ms))) / 100;
+                control-1-x: parent.viewbox-width * 2.3/4;
+                control-1-y: parent.viewbox-height - parent.viewbox-height * (percent + 10 * (sin(360deg * animation-tick()/5000/1ms))) / 100;
+                control-2-x: parent.viewbox-width * 0.4/4;
+                control-2-y: parent.viewbox-height - parent.viewbox-height * (percent - 10 * (cos(360deg * animation-tick()/3000/1ms))) / 100;
             }
         }
 
@@ -60,7 +60,7 @@ export component UIBubbleChart inherits Rectangle {
             width: 6px;
             height: 6px;
             x: parent.width * 3/4;
-            y: parent.height - parent.height * (percent + 20 * (sin(360deg * animation-tick()/6000/1ms))) / 100;
+            y: parent.height - parent.height * (percent + 10 * (sin(360deg * animation-tick()/6000/1ms))) / 100;
             background: Theme.palette.main-color;
             border-radius: self.width/2;
         }
@@ -70,7 +70,7 @@ export component UIBubbleChart inherits Rectangle {
             width: 6px;
             height: 6px;
             x: parent.width * 1/4;
-            y: parent.height - parent.height * (percent - 20 * (cos(360deg * animation-tick()/6000/1ms))) / 100;
+            y: parent.height - parent.height * (percent - 23 * (cos(360deg * animation-tick()/6000/1ms))) / 100;
             background: Theme.palette.main-color;
             border-radius: self.width/2;
         }
