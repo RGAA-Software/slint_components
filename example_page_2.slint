@@ -6,6 +6,7 @@ import { UILineChart } from "ui_line_chart.slint";
 import { UIBlockChart } from "ui_block_chart.slint";
 import { Theme } from "ui_theme.slint";
 import { UIBubbleChart } from "ui_bubble_chart.slint";
+import { UIRadar } from "ui_radar.slint";
 
 export component ComponentPage2 inherits Page {
     
@@ -213,11 +214,17 @@ export component ComponentPage2 inherits Page {
         }
     }
 
-    VSpace {size: 330px;}
+    VSpace {size: 30px;}
 
     HorizontalLayout {
         UIBubbleChart {
             
+        }
+
+        HSpace {size: 20px;}
+
+        UIRadar {
+
         }
     }
 }

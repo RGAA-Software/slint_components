@@ -52,12 +52,13 @@ export component UIBlockChart inherits Rectangle {
             width: parent.width;
             height: parent.height;
             for item[index] in model: Rectangle {
-                y: ta.has-hover ? 3px : 0px;
+                //y: ta.has-hover ? 3px : 0px;
                 width: item.num/total-num * block.width;
-                height: ta.has-hover ? block.height - 6px : block.height;
-                background: item.color;
-                border-radius: ta.has-hover ? 7px : 0;
-                animate y, height , border-radius{
+                //height: ta.has-hover ? block.height - 6px : block.height;
+                height: block.height;
+                background: ta.has-hover ? item.color.darker(30%) : item.color;
+                border-radius: ta.has-hover ? 2px : 0;
+                animate y, height , border-radius, background {
                      duration: 300ms;
                 }
 

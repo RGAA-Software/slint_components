@@ -1,0 +1,192 @@
+import { Theme } from "ui_theme.slint";
+
+export component UIRadar inherits Rectangle {
+
+    in property <brush> circle-border-color: Theme.palette.main-color-darker-15;
+    in property <length> circle-border-width: 1px;
+
+    width: 200px;
+    height: 200px;
+    
+    //background: #909090;
+
+    inner-circle := Rectangle {
+
+        width: parent.width - 30px;
+        height: parent.height - 30px;
+
+        // background: #cccccc;
+
+        border-color: circle-border-color;
+        border-width: circle-border-width*2;
+        border-radius: self.width/2;
+
+        Path {
+            viewbox-width: inner-circle.width/1px;
+            viewbox-height: inner-circle.height/1px;
+            
+            stroke: circle-border-color;
+            stroke-width: circle-border-width;
+
+            MoveTo {
+                x: 0;
+                y: inner-circle.height/1px/2;
+            }
+
+            LineTo {
+                x: inner-circle.width/1px;
+                y: inner-circle.height/1px/2;
+            }
+        }
+
+        Path {
+            viewbox-width: inner-circle.width/1px;
+            viewbox-height: inner-circle.height/1px;
+            
+            stroke: circle-border-color;
+            stroke-width: circle-border-width;
+
+            MoveTo {
+                x: inner-circle.width/1px/2;
+                y: 0;
+            }
+
+            LineTo {
+                x: inner-circle.width/1px/2;
+                y: inner-circle.height/1px;
+            }
+        }
+
+        for item[index] in [1,2,3,4,5,6,7,8,9,10]: Path {
+            viewbox-width: inner-circle.width/1px;
+            viewbox-height: inner-circle.height/1px;
+            
+            stroke: circle-border-color;
+            stroke-width: circle-border-width;
+        
+            MoveTo {
+                x: parent.viewbox-width/10 * index;
+                y: parent.viewbox-height/2 - 5;
+            }
+
+            LineTo {
+                x: parent.viewbox-width/10 * index;
+                y: parent.viewbox-height/2 + 5;
+            }
+
+        }
+
+        for item[index] in [1,2,3,4,5,6,7,8,9,10]: Path {
+            viewbox-width: inner-circle.width/1px;
+            viewbox-height: inner-circle.height/1px;
+            
+            stroke: Theme.palette.main-color;
+            stroke-width: circle-border-width;
+        
+            MoveTo {
+                x: parent.viewbox-width/2 - 5;
+                y: parent.viewbox-height/10 * index;
+            }
+
+            LineTo {
+                x: parent.viewbox-width/2 + 5;
+                y: parent.viewbox-height/10 * index;
+            }
+
+        }
+
+        clip: true;
+
+        Rectangle {
+            in property <length> size: 6px;
+            width: size * abs(sin(animation-tick() / 20ms * 1deg));
+            height: size * abs(sin(animation-tick() / 20ms * 1deg));
+            background: Theme.palette.main-color;
+            border-radius: self.width/2;
+            x: 30px;
+            y: 50px;
+            drop-shadow-blur: 3px;
+            drop-shadow-color: Theme.palette.warn-color;
+        }
+
+        Rectangle {
+            in property <length> size: 4px;
+            width: size * abs(cos(animation-tick() / 20ms * 1deg));
+            height: size * abs(cos(animation-tick() / 20ms * 1deg));
+            background: Theme.palette.main-color-darker-15;
+            border-radius: self.width/2;
+            x: 130px;
+            y: 70px;
+            drop-shadow-blur: 3px;
+            drop-shadow-color: Theme.palette.warn-color;
+        }
+
+        Rectangle {
+            in property <length> size: 3px;
+            width: size * abs(cos(animation-tick() / 120ms * 1deg));
+            height: size * abs(cos(animation-tick() / 120ms * 1deg));
+            background: Theme.palette.main-color;
+            border-radius: self.width/2;
+            x: 50px;
+            y: 120px;
+            drop-shadow-blur: 3px;
+            drop-shadow-color: Theme.palette.warn-color;
+        }
+
+        Rectangle {
+            in property <length> size: 7px;
+            width: size * abs(sin(animation-tick() / 80ms * 1deg));
+            height: size * abs(sin(animation-tick() / 80ms * 1deg));
+            background: Theme.palette.main-color;
+            border-radius: self.width/2;
+            x: 110px;
+            y: 110px;
+            drop-shadow-blur: 3px;
+            drop-shadow-color: Theme.palette.warn-color;
+        }
+
+        Rectangle {
+            width: parent.width;
+            height: parent.height;
+
+            in property <int> angel: 0;
+
+            Path {
+
+                viewbox-width: parent.width/1px;
+                viewbox-height: parent.height/1px;
+
+                stroke: Theme.palette.main-color;
+                stroke-width: 2px;
+                fill: Theme.palette.main-color-darker-30.with-alpha(0.4);
+
+                MoveTo {
+                    x: parent.viewbox-width/2;
+                    y: parent.viewbox-height/2;
+                }
+
+                LineTo {
+                    x: parent.viewbox-width/2 + cos(angel * 1deg + (animation-tick() / 250ms) * 20deg) * parent.viewbox-width/2;
+                    y: parent.viewbox-height/2 + sin(angel * 1deg + (animation-tick() / 250ms) * 20deg) * parent.viewbox-height/2;
+                }
+
+                ArcTo {
+                    x: parent.viewbox-width/2 + cos((angel - 90)* 1deg + (animation-tick() / 250ms) * 20deg) * parent.viewbox-width/2;
+                    y: parent.viewbox-height/2 + sin((angel -90)* 1deg + (animation-tick() / 250ms) * 20deg) * parent.viewbox-height/2;
+                    radius-x: 1;
+                    radius-y: 1;
+                }
+
+                Close {
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+
+}
