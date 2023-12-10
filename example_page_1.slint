@@ -4,6 +4,7 @@ import { UIButton , MainButton, WarnButton, LightMainButton, ErrorButton} from "
 import { UIIconButton, MainIconButton, WarnIconButton, LightMainIconButton, ErrorIconButton } from "ui_icon_button.slint";
 import { HSpace, VSpace } from "ui_space.slint";
 import { RoundedImage } from "ui_rounded_image.slint";
+import { UILineEdit } from "ui_lint_edit.slint";
 
 export component ComponentPage1 inherits Page {
     
@@ -95,6 +96,12 @@ export component ComponentPage1 inherits Page {
                 clip: true;
                 src: @image-url("res/swan.jpg");
             }
+        }
+
+        VSpace {size: 10px;}
+
+        UILineEdit {
+            
         }
     }
 

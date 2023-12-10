@@ -1,0 +1,31 @@
+import { Theme } from "ui_theme.slint";
+import { LineEdit , HorizontalBox} from "std-widgets.slint";
+import { HSpace } from "ui_space.slint";
+
+export component UILineEdit inherits Rectangle {
+    
+    in property <brush> out-border-color: Theme.palette.font-color-main;
+    in property <brush> bg-color: Theme.palette.divider-color;
+    in property <length> font-size: 17px;
+
+    width: 300px;
+    height: 45px;
+
+    background: bg-color;
+    border-color: out-border-color;
+    border-radius: 5px;
+    border-width: 1px;
+
+    HorizontalLayout {
+        HSpace {size: 6px;}
+        TextInput {
+            width: parent.width;
+            height: parent.height;
+            vertical-alignment: center;
+            font-size: font-size;
+        }
+    }
+
+    
+
+}

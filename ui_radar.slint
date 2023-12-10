@@ -115,8 +115,8 @@ export component UIRadar inherits Rectangle {
             height: size * abs(cos(animation-tick() / 20ms * 1deg));
             background: Theme.palette.main-color-darker-15;
             border-radius: self.width/2;
-            x: 130px;
-            y: 70px;
+            x: 80px;
+            y: 50px;
             drop-shadow-blur: 3px;
             drop-shadow-color: Theme.palette.warn-color;
         }
@@ -128,7 +128,7 @@ export component UIRadar inherits Rectangle {
             background: Theme.palette.main-color;
             border-radius: self.width/2;
             x: 50px;
-            y: 120px;
+            y: 60px;
             drop-shadow-blur: 3px;
             drop-shadow-color: Theme.palette.warn-color;
         }
@@ -139,8 +139,8 @@ export component UIRadar inherits Rectangle {
             height: size * abs(sin(animation-tick() / 80ms * 1deg));
             background: Theme.palette.main-color;
             border-radius: self.width/2;
-            x: 110px;
-            y: 110px;
+            x: 30px;
+            y: 20px;
             drop-shadow-blur: 3px;
             drop-shadow-color: Theme.palette.warn-color;
         }
@@ -166,13 +166,13 @@ export component UIRadar inherits Rectangle {
                 }
 
                 LineTo {
-                    x: parent.viewbox-width/2 + cos(angel * 1deg + (animation-tick() / 250ms) * 20deg) * parent.viewbox-width/2;
-                    y: parent.viewbox-height/2 + sin(angel * 1deg + (animation-tick() / 250ms) * 20deg) * parent.viewbox-height/2;
+                    x: parent.viewbox-width/2 + cos(angel * 1deg + (animation-tick() / 250ms) * 30deg) * parent.viewbox-width/2;
+                    y: parent.viewbox-height/2 + sin(angel * 1deg + (animation-tick() / 250ms) * 30deg) * parent.viewbox-height/2;
                 }
 
                 ArcTo {
-                    x: parent.viewbox-width/2 + cos((angel - 90)* 1deg + (animation-tick() / 250ms) * 20deg) * parent.viewbox-width/2;
-                    y: parent.viewbox-height/2 + sin((angel -90)* 1deg + (animation-tick() / 250ms) * 20deg) * parent.viewbox-height/2;
+                    x: parent.viewbox-width/2 + cos((angel - 90)* 1deg + (animation-tick() / 250ms) * 30deg) * parent.viewbox-width/2;
+                    y: parent.viewbox-height/2 + sin((angel -90)* 1deg + (animation-tick() / 250ms) * 30deg) * parent.viewbox-height/2;
                     radius-x: 1;
                     radius-y: 1;
                 }

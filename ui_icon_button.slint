@@ -11,12 +11,13 @@ export component UIIconButton inherits Rectangle {
     in property <length> icon-size: 18px;
     in property <length> icon-text-space: 5px;
     in property <image> src;
+    in property <length> out-border-size: 8px;
 
     callback button-clicked <=> ta.clicked;
 
     width: 110px;
     height: 30px;
-    border-radius: 8px;
+    border-radius: out-border-size;
     background: ta.pressed || selected ? bg-color.darker(30%) :ta.has-hover? bg-color.darker(15%) : bg-color;
 
     HorizontalLayout {
@@ -29,6 +30,7 @@ export component UIIconButton inherits Rectangle {
                 width: icon-size;
                 height: icon-size;
                 source: src;
+                colorize: text-color;
             }
         }
 
